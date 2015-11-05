@@ -1,0 +1,23 @@
+class AlphaChange : ZilchComponent
+{
+    var Fade : Real = 0.0;
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        this.Fade += 0.015;
+        if(this.Fade >= 1)
+        {
+            this.Fade = 1;
+        }
+        var temp = this.Owner.Sprite.Color;
+        var temp2 = Real4(temp.X, temp.Y, temp.Z, this.Fade);
+        this.Owner.Sprite.Color = temp2;
+        if(this.Owner.Sprite.Color == Real4(1, 1, 1, 1))
+        {
+            this.Space.ReloadLevel();
+        }
+    }
+}

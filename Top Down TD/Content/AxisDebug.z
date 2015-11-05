@@ -1,0 +1,29 @@
+class AxisDebug : ZilchComponent
+{
+    [Dependency]
+    var Transform: Transform;
+    [Dependency]
+    var Orientation: Orientation;
+    [Property]
+    var ArrowLength : Real = 3.0;
+    function Initialize(init : CogInitializer)
+    {
+        Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        var myPos = this.Transform.WorldTranslation;
+        var forward = this.Orientation.WorldForward;
+        var up = this.Orientation.WorldUp;
+        var right = this.Orientation.WorldRight;
+        
+        this.DrawArrow(myPos, forward, Real4(1, 0, 0, 1));
+        this.DrawArrow(myPos, up, Real4(0, 1, 0, 1));
+        this.DrawArrow(myPos, right, Real4(0, 0, 1, 1));
+    }
+    function DrawArrow(start : Real3, direction : Real3, color : Real4)
+    {
+        var arrow = new DebugLine();
+        arrow.Float4Color(color).Start(start).End(start + (direction * this.ArrowLength)).Draw();
+    }
+}

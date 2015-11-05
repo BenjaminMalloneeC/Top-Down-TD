@@ -1,0 +1,36 @@
+class RotationTest : ZilchComponent
+{
+    [Property]
+    var RotationSpeed : Real = 30.0;
+    function Initialize(init : CogInitializer)
+    {
+        //Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+        Zero.Connect(this.Owner, Events.CollisionStarted, this.OnCollisionStarted);
+    }
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+        //var rotationSpeedRadians = Math.ToRadians(this.RotationSpeed);
+        //var rotation = Math.ToQuaternion(Real3(0,0,rotationSpeedRadians * event.Dt));
+        //this.Owner.Transform.RotateAnglesWorld(Real3(0,0,rotationSpeedRadians * event.Dt));
+    }
+    function OnCollisionStarted(event : CollisionEvent)
+    {
+        var otherObject = event.OtherObject;
+        if(otherObject.Name == "Rotate1")
+        {
+        this.Owner.Transform.RotateAnglesWorld(Real3(0,0,-80));
+        }
+        if(otherObject.Name == "Rotate2")
+        {
+            this.Owner.Transform.RotateAnglesWorld(Real3(0,0,-80));
+        }
+        if(otherObject.Name == "Rotate3")
+        {
+            this.Owner.Transform.RotateAnglesWorld(Real3(0,0,80));
+        }
+        if(otherObject.Name == "Rotate4")
+        {
+            this.Owner.Transform.RotateAnglesWorld(Real3(0,0,80));
+        }
+    }
+}

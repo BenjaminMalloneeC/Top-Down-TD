@@ -1,0 +1,12 @@
+class RotationPrinter : ZilchComponent
+{
+    function Initialize(init : CogInitializer)
+    {
+        var angle = Math.ToDegrees(this.Owner.Transform.EulerAngles.Z);
+        Console.WriteLine("Object Name: `this.Owner.Name`, Z-Angle: `angle`");
+        //Zero.Connect(this.Space, Events.LogicUpdate, this.OnLogicUpdate);
+    }
+    function OnLogicUpdate(event : UpdateEvent)
+    {
+    }
+}
